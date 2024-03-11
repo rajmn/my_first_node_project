@@ -1,9 +1,9 @@
-const User = require('../../models/userModel');
+const TestUser = require('../../models/TestUserModel');
 
 const create = async (userModel, req, res) => {
     console.log(userModel + ' model called');
     console.log(req.body);
-    const newUser = new User(req.body);
+    const newUser = new TestUser(req.body);
     const user = await newUser.save();
     let response = {
         'status':'Success',
