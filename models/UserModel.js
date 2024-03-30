@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, "Email is required"],
-        unique: true,
+        unique: [true,"Email is already taken"],
         validate: {
             validator: async function (value) {
                 if (!this.isModified('email')) return true; // Skip validation if email is not modified
@@ -61,10 +61,10 @@ return bcrypt.compareSync(salt + userpassword, this.password);
 };
 
 // Custom validation function for password
-function validatePassword(password) {
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return regex.test(password);
-}
+// function validatePassword(password) {
+//     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+//     return regex.test(password);
+// }
 UserSchema.methods.checkPassword = (password) => {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return regex.test(password);

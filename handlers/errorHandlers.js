@@ -11,21 +11,29 @@ exports.catchErrors = (fn) => {
       return fn(req, res, next).catch((error) => {
         if (error.name == 'ValidationError') {
           return res.status(400).json({
-            success: false,
-            result: null,
-            message: 'Required fields are not supplied',
-            controller: fn.name,
-            error: error,
+              status: 'error',
+              code: 400,
+              data: null,
+              message: error.message,
+              errors: error.errors
           });
+         
         } else {
           // Server Error
-          return res.status(500).json({
-            success: false,
-            result: null,
+          return res.status(400).json({
+            status: 'error',
+            code: 400,
+            data: null,
             message: error.message,
-            controller: fn.name,
-            error: error,
+            errors: error
           });
+          // return res.status(500).json({
+          //   success: false,
+          //   result: null,
+          //   message: error.message,
+          //   controller: fn.name,
+          //   error: error,
+          // });
         }
       });
     };
