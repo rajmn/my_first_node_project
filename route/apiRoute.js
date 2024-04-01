@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-// Require the upload middleware from app.js
-// const { upload } = require('../app');
+// Require the upload middleware from 
+const upload = require('../config/upload');
 
 const { catchErrors } = require('../handlers/errorHandlers');
 const userController = require('../controllers/userController');
-const validateForm = require('../validations/registration/registerValidation');
+const registrationValidation = require('../validations/registration/registerValidation');
+const loginValidation = require('../validations/login/loginValidation');
 
 
 // router.get('/get_user', (req, res) => {
@@ -33,6 +34,7 @@ multiple route for same path
 router.route('/get_user').get(catchErrors(userController.paginatedList));
 router.post('/create_user', catchErrors(userController.create));
 // router.post('/register',registerValidation, upload.single('profile_image'), catchErrors(userController.register));
-router.post('/register',validateForm, catchErrors(userController.register));
+router.post('/register',upload.single('profile_image'),registrationValidation, catchErrors(userController.register));
+router.post('/login',loginValidation, catchErrors(userController.login));
 
 module.exports = router; 

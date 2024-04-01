@@ -1,7 +1,6 @@
 const TestUser = require('../../models/TestUserModel');
 
-const create = async (userModel, req, res) => {
-    console.log(userModel + ' model called');
+const create = async (req, res) => {
     console.log(req.body);
     const newUser = new TestUser(req.body);
     const user = await newUser.save();

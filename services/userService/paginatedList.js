@@ -1,6 +1,6 @@
 const { TestUser, Post, User} = require('../../models/mother_models/Model_kernel');
 
-const paginatedList = async (userModel, req, res) => {
+const paginatedList = async (req, res) => {
     console.log('get user called');
     // const allUserList = await TestUser.find()
     //     .skip(0)
